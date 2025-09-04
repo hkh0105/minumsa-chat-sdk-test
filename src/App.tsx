@@ -112,6 +112,7 @@ export default function App() {
     console.log("✅ Millie Chat SDK 초기화 완료");
 
     // 컴포넌트 언마운트 시 정리
+    console.log(plugin.options);
     return () => {
       plugin.destroy();
       console.log("🧹 Widget 정리 완료");
@@ -163,8 +164,6 @@ export default function App() {
       setTimeout(() => {
         const newPlugin = new MillieChatPlugin({
           position: "bottom-right",
-          width: 500,
-          height: 1000,
           mobileFullscreen: true,
           characterImages: ["🤴", "👑", "💜", "🌹"],
           onChatRoomCreated: async (a, b) => {
