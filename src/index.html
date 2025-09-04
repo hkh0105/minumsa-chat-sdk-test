@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Millie Chat SDK - React Example</title>
+    <style>
+      * {
+        box-sizing: border-box;
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        &::-webkit-scrollbar {
+          display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100dvh;
+        overflow-x: hidden;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        overflow: hidden;
+        overscroll-behavior: none;
+      }
+
+      #root {
+        width: 100%;
+        overflow-x: hidden;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- React app mount point -->
+    <div id="root"></div>
+
+    <!-- Load the React app -->
+    <script type="module" src="./main.tsx"></script>
+  </body>
+</html>
