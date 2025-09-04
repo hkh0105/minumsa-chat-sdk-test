@@ -140,7 +140,7 @@ export default function App() {
 
   const showNewChat = () => {
     // 새로운 세션 ID 생성하여 새 채팅방 열기
-    const newSessionId = MillieChatPlugin.newSessionId();
+    const newSessionId = MillieChatSDK.MillieChatPlugin.newSessionId();
 
     widget?.show({ sessionId: newSessionId, character: currentCharacter }); // 다른 캐릭터로 테스트
     setIsVisible(true);
