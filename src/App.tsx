@@ -82,7 +82,7 @@ export default function App() {
   const [widget, setWidget] = useState<MillieChatPlugin | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [clickCount, setClickCount] = useState(0);
-  const [currentCharacter, setCurrentCharacter] = useState<string>("차이훈");
+  const [currentCharacter, setCurrentCharacter] = useState<string>("차선겸");
 
   useEffect(() => {
     // SDK 초기화 예제
@@ -120,10 +120,7 @@ export default function App() {
 
   const showWidget = () => {
     // 새 세션 ID 생성 또는 기존 세션 사용
-    const oldKey =
-      currentCharacter === "차이훈"
-        ? "29180e13-88ae-421b-9a11-478e20510170"
-        : "1d043d9b-0f5f-4e9c-a98d-4c812e279e32";
+    const oldKey = "c5b144f8-c54f-450c-9545-57745489cf15";
     const sessionId = oldKey;
 
     // show 메서드에 sessionId와 characterName 전달
@@ -194,10 +191,10 @@ export default function App() {
   };
 
   const toggleCharacter = () => {
-    if (currentCharacter === "차이훈") {
-      setCurrentCharacter("김하연");
+    if (currentCharacter === "차선겸") {
+      setCurrentCharacter("차선겸");
     } else {
-      setCurrentCharacter("차이훈");
+      setCurrentCharacter("차선겸");
     }
   };
 
