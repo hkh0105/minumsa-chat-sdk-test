@@ -118,6 +118,17 @@ export default function App() {
     };
   }, []);
 
+  const showLocalStorageKey = () => {
+    const myKey = localStorage?.getItem("millie-session-key");
+    if (!myKey) {
+      return alert("키를 먼저 발급받아주세요");
+    } else {
+      widget?.show({ sessionId: myKey, character: currentCharacter }); // 다른 캐릭터로 테스트
+      setIsVisible(true);
+      setClickCount((prev) => prev + 1);
+    }
+  };
+
   const showWidget = () => {
     // 새 세션 ID 생성 또는 기존 세션 사용
     const oldKey = "c5b144f8-c54f-450c-9545-57745489cf15";
@@ -138,7 +149,7 @@ export default function App() {
   const showNewChat = () => {
     // 새로운 세션 ID 생성하여 새 채팅방 열기
     const newSessionId = MillieChatSDK.MillieChatPlugin.newSessionId();
-
+    localStorage?.setItem("millie-session-key", newSessionId);
     widget?.show({ sessionId: newSessionId, character: currentCharacter }); // 다른 캐릭터로 테스트
     setIsVisible(true);
     setClickCount((prev) => prev + 1);
@@ -206,8 +217,15 @@ export default function App() {
         <DevTitle>🛠 SDK 테스트 컨트롤</DevTitle>
 
         <DevButtonGroup>
-          <DevButton onClick={showWidget}>Show</DevButton>
-          <DevButton onClick={showNewChat}>New Chat</DevButton>
+          <DevButton onClick={showWidget}>
+            하드코딩키로 대화하기(남이랑공유중)
+          </DevButton>
+          <DevButton onClick={showNewChat}>
+            세션키 새로 발급받아 대화하기
+          </DevButton>
+          <DevButton onClick={showLocalStorageKey}>
+            기존 내 키로 대화하기
+          </DevButton>
           <DevButton onClick={hideWidget}>Hide</DevButton>
           <DevButton onClick={toggleCharacter}>
             Toggle Character {currentCharacter}
