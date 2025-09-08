@@ -29,7 +29,6 @@ declare class MillieChatPlugin {
   destroy(): void;
 }
 
-// Declare on Window interface for script tag usage
 declare interface Window {
   MillieChatPlugin: typeof MillieChatPlugin;
   MillieChatSDK: {
@@ -37,7 +36,6 @@ declare interface Window {
   };
 }
 
-// For UMD module
 declare module "millie-chat-sdk" {
   export { MillieChatPlugin };
 }
