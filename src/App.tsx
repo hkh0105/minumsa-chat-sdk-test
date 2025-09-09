@@ -87,6 +87,7 @@ export default function App() {
   useEffect(() => {
     // SDK 초기화 예제
     // 1. MillieChatPlugin 인스턴스 생성
+    console.log("HI");
     const plugin = new window.MillieChatSDK.MillieChatPlugin({
       // 모바일에서 전체화면 여부
       mobileFullscreen: true,
