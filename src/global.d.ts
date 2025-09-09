@@ -22,6 +22,9 @@ interface ShowOptions {
 }
 
 declare class MillieChatPlugin {
+  setPresetId(presetId: number) {
+    throw new Error("Method not implemented.");
+  }
   constructor(options?: MillieChatPluginOptions);
   static newSessionId(): string;
   show(options?: ShowOptions): void;
@@ -48,5 +51,6 @@ declare namespace MillieChatSDK {
     show(options?: ShowOptions): void;
     hide(): void;
     destroy(): void;
+    setPresetId: (prestId: number) => void;
   }
 }
