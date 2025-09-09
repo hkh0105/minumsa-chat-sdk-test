@@ -76,6 +76,60 @@ const StatusText = styled.div`
     color: #333;
   }
 `;
+const PresetSection = styled.div`
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e2e8f0;
+`;
+
+const PresetTitle = styled.h4`
+  color: #333;
+  font-size: 12px;
+  margin-bottom: 8px;
+  font-weight: 600;
+`;
+
+const PresetButton = styled.button<{ isActive?: boolean }>`
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid ${(props) => (props.isActive ? "#667eea" : "#cbd5e0")};
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: ${(props) => (props.isActive ? "#667eea" : "white")};
+  color: ${(props) => (props.isActive ? "white" : "#4a5568")};
+  width: 100%;
+  margin-bottom: 6px;
+  text-align: left;
+
+  &:hover {
+    background: ${(props) => (props.isActive ? "#5a67d8" : "#f7fafc")};
+    border-color: #667eea;
+  }
+
+  .preset-id {
+    font-weight: 700;
+    margin-right: 6px;
+  }
+
+  .preset-name {
+    font-size: 10px;
+  }
+`;
+
+const CurrentPreset = styled.div`
+  padding: 6px 8px;
+  background: #edf2f7;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  font-size: 11px;
+  color: #2d3748;
+
+  strong {
+    color: #667eea;
+  }
+`;
 
 // eslint-disable-next-line react-refresh/only-export-components
 export default function App() {
@@ -83,6 +137,13 @@ export default function App() {
   const [isVisible, setIsVisible] = useState(false);
   const [clickCount, setClickCount] = useState(0);
   const [currentCharacter, setCurrentCharacter] = useState<string>("차선겸");
+  const [currentPresetId, setCurrentPresetId] = useState<number>(60);
+
+  const presetOptions = [
+    { id: 61, name: "[채팅 모델] 밀리 캐릭터 - GPT4o" },
+    { id: 60, name: "[채팅 모델] 밀리 캐릭터 - 제미나이" },
+    { id: 59, name: "[채팅 모델] 밀리 캐릭터 - 클로드" },
+  ];
 
   useEffect(() => {
     // SDK 초기화 예제
@@ -118,6 +179,13 @@ export default function App() {
       console.log("🧹 Widget 정리 완료");
     };
   }, []);
+  const changePreset = (presetId: number) => {
+    setCurrentPresetId(presetId);
+    if (widget) {
+      widget.setPresetId(presetId);
+      console.log(`✅ Preset changed to: ${presetId}`);
+    }
+  };
 
   const showLocalStorageKey = () => {
     const myKey = localStorage?.getItem("millie-session-key");
@@ -234,6 +302,23 @@ export default function App() {
           <DevButton variant="danger" onClick={destroyWidget}>
             Destroy
           </DevButton>
+
+          <PresetSection>
+            <PresetTitle>🤖 Preset 선택</PresetTitle>
+            <CurrentPreset>
+              현재 Preset: <strong>ID {currentPresetId}</strong>
+            </CurrentPreset>
+            {presetOptions.map((preset) => (
+              <PresetButton
+                key={preset.id}
+                isActive={currentPresetId === preset.id}
+                onClick={() => changePreset(preset.id)}
+              >
+                <span className="preset-id">{preset.id}</span>
+                <span className="preset-name">{preset.name}</span>
+              </PresetButton>
+            ))}
+          </PresetSection>
         </DevButtonGroup>
 
         <StatusText>
