@@ -130,6 +130,60 @@ const CurrentPreset = styled.div`
     color: #667eea;
   }
 `;
+const SpeedSection = styled.div`
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e2e8f0;
+`;
+
+const SpeedTitle = styled.h4`
+  color: #333;
+  font-size: 12px;
+  margin-bottom: 8px;
+  font-weight: 600;
+`;
+
+const SpeedButton = styled.button<{ isActive?: boolean }>`
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 500;
+  border: 1px solid ${(props) => (props.isActive ? "#667eea" : "#cbd5e0")};
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: ${(props) => (props.isActive ? "#667eea" : "white")};
+  color: ${(props) => (props.isActive ? "white" : "#4a5568")};
+  width: 100%;
+  margin-bottom: 6px;
+  text-align: left;
+
+  &:hover {
+    background: ${(props) => (props.isActive ? "#5a67d8" : "#f7fafc")};
+    border-color: #667eea;
+  }
+
+  .speed-value {
+    font-weight: 700;
+    margin-right: 6px;
+  }
+
+  .speed-name {
+    font-size: 10px;
+  }
+`;
+
+const CurrentSpeed = styled.div`
+  padding: 6px 8px;
+  background: #edf2f7;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  font-size: 11px;
+  color: #2d3748;
+
+  strong {
+    color: #667eea;
+  }
+`;
 
 // eslint-disable-next-line react-refresh/only-export-components
 export default function App() {
@@ -138,11 +192,21 @@ export default function App() {
   const [clickCount, setClickCount] = useState(0);
   const [currentCharacter, setCurrentCharacter] = useState<string>("차선겸");
   const [currentPresetId, setCurrentPresetId] = useState<number>(60);
+  const [currentAnimationSpeed, setCurrentAnimationSpeed] =
+    useState<number>(500);
 
   const presetOptions = [
     { id: 61, name: "[채팅 모델] 밀리 캐릭터 - GPT4o" },
     { id: 60, name: "[채팅 모델] 밀리 캐릭터 - 제미나이" },
     { id: 59, name: "[채팅 모델] 밀리 캐릭터 - 클로드" },
+  ];
+  const speedOptions = [
+    { value: 0, name: "즉시 (애니메이션 없음)" },
+    { value: 100, name: "매우 빠름" },
+    { value: 300, name: "빠름" },
+    { value: 500, name: "보통 (기본)" },
+    { value: 800, name: "느림" },
+    { value: 1200, name: "매우 느림" },
   ];
 
   useEffect(() => {
@@ -152,7 +216,7 @@ export default function App() {
     const plugin = new window.MillieChatSDK.MillieChatPlugin({
       // 모바일에서 전체화면 여부
       mobileFullscreen: true,
-
+      messageAnimationSpeed: currentAnimationSpeed,
       onChatRoomCreated: async (a, b) => {
         console.log(a, b, "챗룸생성 함수...");
       },
@@ -248,6 +312,7 @@ export default function App() {
           onChatRoomCreated: async (a, b) => {
             console.log(a, b, "챗룸생성...");
           },
+          messageAnimationSpeed: currentAnimationSpeed,
           onClickSendButton: async (a, b) => {
             console.log(a, b, "보내기이벤트...");
           },
@@ -273,6 +338,13 @@ export default function App() {
       setCurrentCharacter("차선겸");
     } else {
       setCurrentCharacter("차선겸");
+    }
+  };
+  const changeAnimationSpeed = (speed: number) => {
+    setCurrentAnimationSpeed(speed);
+    if (widget) {
+      widget.setAnimationSpeed(speed);
+      console.log(`✅ Animation speed changed to: ${speed}ms`);
     }
   };
 
@@ -320,7 +392,22 @@ export default function App() {
             ))}
           </PresetSection>
         </DevButtonGroup>
-
+        <SpeedSection>
+          <SpeedTitle>⚡ 애니메이션 속도</SpeedTitle>
+          <CurrentSpeed>
+            현재 속도: <strong>{currentAnimationSpeed}ms</strong>
+          </CurrentSpeed>
+          {speedOptions.map((speed) => (
+            <SpeedButton
+              key={speed.value}
+              isActive={currentAnimationSpeed === speed.value}
+              onClick={() => changeAnimationSpeed(speed.value)}
+            >
+              <span className="speed-value">{speed.value}ms</span>
+              <span className="speed-name">{speed.name}</span>
+            </SpeedButton>
+          ))}
+        </SpeedSection>
         <StatusText>
           초기화: <span>{widget ? "✅" : "❌"}</span> | 표시:{" "}
           <span>{isVisible ? "✅" : "❌"}</span> | 클릭:{" "}

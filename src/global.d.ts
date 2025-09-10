@@ -14,6 +14,7 @@ interface MillieChatPluginOptions {
   onChatRoomCreated?: (sessionId: string, character: string) => Promise<void>;
   onClickSendButton?: (message: string, sessionId: string) => Promise<void>;
   onClickProfileImage?: (character: string, sessionId: string) => Promise<void>;
+  messageAnimationSpeed?: number;
 }
 
 interface ShowOptions {
@@ -30,6 +31,7 @@ declare class MillieChatPlugin {
   show(options?: ShowOptions): void;
   hide(): void;
   destroy(): void;
+  setAnimationSpeed: (spped?: number) => void;
 }
 
 declare interface Window {
@@ -52,5 +54,6 @@ declare namespace MillieChatSDK {
     hide(): void;
     destroy(): void;
     setPresetId: (prestId: number) => void;
+    setAnimationSpeed: (spped?: number) => void;
   }
 }
