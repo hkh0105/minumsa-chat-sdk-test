@@ -203,9 +203,14 @@ export default function App() {
   const speedOptions = [
     { value: 0, name: "즉시 (애니메이션 없음)" },
     { value: 100, name: "매우 빠름" },
+    { value: 200, name: "매우 빠름2" },
     { value: 300, name: "빠름" },
+    { value: 400, name: "빠름2" },
     { value: 500, name: "보통 (기본)" },
+    { value: 600, name: "보통 (기본)2" },
+    { value: 700, name: "보통 (기본)3" },
     { value: 800, name: "느림" },
+    { value: 1000, name: "느림2" },
     { value: 1200, name: "매우 느림" },
   ];
 
