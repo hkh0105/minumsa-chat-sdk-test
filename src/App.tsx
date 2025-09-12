@@ -340,7 +340,7 @@ export default function App() {
 
   const toggleCharacter = () => {
     if (currentCharacter === "차선겸") {
-      setCurrentCharacter("차선겸");
+      setCurrentCharacter("서리");
     } else {
       setCurrentCharacter("차선겸");
     }
