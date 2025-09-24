@@ -887,8 +887,9 @@ export default function App() {
   useEffect(() => {
     // SDK 초기화 예제
     // 1. ChatPlugin 인스턴스 생성
+    console.log(window);
     console.log("HI");
-    const plugin = new window.MillieChatSDK.MillieChatPlugin({
+    const plugin = new window.ChatPlugin({
       // 모바일에서 전체화면 여부
       mobileFullscreen: true,
       // messageAnimationSpeed: currentAnimationSpeed,
@@ -956,9 +957,12 @@ export default function App() {
   //   );
   // };
 
+  useEffect(() => {
+    console.log(window);
+  }, []);
   const showNewChat = (name: string) => {
     // 새로운 세션 ID 생성하여 새 채팅방 열기
-    const newSessionId = MillieChatSDK.MillieChatPlugin.newSessionId();
+    const newSessionId = window.ChatPlugin.newSessionId();
     localStorage?.setItem("millie-session-key", newSessionId);
     localStorage?.setItem("prev-chat-caracter", name);
     setCurrentCharacter(name);
@@ -984,7 +988,7 @@ export default function App() {
 
       // 2초 후 재생성
       setTimeout(() => {
-        const newPlugin = new MillieChatPlugin({
+        const newPlugin = new window.ChatPlugin({
           position: "bottom-right",
           mobileFullscreen: true,
           characterImages: ["🤴", "👑", "💜", "🌹"],
@@ -1551,7 +1555,7 @@ export default function App() {
             {/* <DevButton onClick={showWidget}>
               하드코딩키로 대화하기(공유 세션)
             </DevButton> */}
-            <DevButton onClick={() => showNewChat("차선겸")}>
+            <DevButton onClick={() => showNewChat("미들마치")}>
               새로 대화하기
             </DevButton>
             {currentCharacter && (

@@ -39,6 +39,7 @@ declare interface Window {
   MillieChatSDK: {
     MillieChatPlugin: typeof MillieChatPlugin;
   };
+  ChatPlugin: typeof MillieChatPlugin;
 }
 
 declare module "millie-chat-sdk" {
