@@ -939,22 +939,22 @@ export default function App() {
     }
   };
 
-  const showWidget = () => {
-    // 새 세션 ID 생성 또는 기존 세션 사용
-    const oldKey = "c5b144f8-c54f-450c-9545-57745489cf15";
-    const sessionId = oldKey;
+  // const showWidget = () => {
+  //   // 새 세션 ID 생성 또는 기존 세션 사용
+  //   const oldKey = "c5b144f8-c54f-450c-9545-57745489cf15";
+  //   const sessionId = oldKey;
 
-    // show 메서드에 sessionId와 characterName 전달
-    widget?.show({ sessionId, character: "미들마치" });
-    setIsVisible(true);
-    setClickCount((prev) => prev + 1);
-    console.log(
-      "Widget shown with session:",
-      sessionId,
-      "character:",
-      currentCharacter
-    );
-  };
+  //   // show 메서드에 sessionId와 characterName 전달
+  //   widget?.show({ sessionId, character: "미들마치" });
+  //   setIsVisible(true);
+  //   setClickCount((prev) => prev + 1);
+  //   console.log(
+  //     "Widget shown with session:",
+  //     sessionId,
+  //     "character:",
+  //     currentCharacter
+  //   );
+  // };
 
   const showNewChat = (name: string) => {
     // 새로운 세션 ID 생성하여 새 채팅방 열기
